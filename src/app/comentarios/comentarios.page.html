@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button 
+    defaultHref="tabs/tab3"
+    text=""
+    color="dark"
+    slot="start">
+  </ion-back-button>
+  
+    <ion-title>
+      Comentarios del evento
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{evento.id}}</ion-card-subtitle>
+      <ion-card-title>{{evento.nombre}}</ion-card-title>
+      <img src="assets/evento1.jpg" alt="">
+    </ion-card-header>
+    <ion-card-content>
+        
+        <h1 slot="end" style="text-align: center;">Comentarios</h1>
+      <ion-list [inset]="true"  *ngFor="let e of evento.comentarios">
+        <ion-item >
+          <p style="color: blueviolet; text-align: center;">{{e.user}}</p>
+        </ion-item>
+        <ion-item>
+          <p style="color: yellow;">{{e.comentario}}</p> 
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    
+  </ion-card>
+</ion-content>

@@ -1,0 +1,125 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+  <ion-back-button 
+    defaultHref="tabs/tab3"
+    text=""
+    color="dark"
+    slot="start">
+  </ion-back-button>
+    <ion-title>Editando Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p class="pr pl">Aqui podras editar o cancelar el evento</p>
+  <ion-card color="dark" >
+    <ion-card-header>
+      <!-- Aqui va la imagen del evento  [(ngModel)]=img -->
+      <img [src]="evento.portada || 'assets/robots.jpg'" [alt]="'Portada de ' + evento.nombre"> 
+    </ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Editar Evento</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="updateForm">
+
+        <ion-list>
+          <ion-item>
+            <ion-input disabled="true" name="id" labelPlacement="floating" type="text" label="Id: " value="{{evento.id}}"></ion-input>
+          </ion-item>
+        <ion-item>
+          <ion-input name="nombre" formControlName="nombre" labelPlacement="floating" type="text" label="Nombre del Evento: "  ></ion-input>
+        </ion-item>
+
+        <div id="alerta" *ngIf="updateForm.get('nombre')?.invalid && (updateForm.get('nombre')?.dirty || 
+                      updateForm.get('nombre')?.touched)">
+              <div id="alerta" *ngIf="updateForm.get('nombre')?.hasError('required')">
+                *Debe ingresar un nombre para el evento
+              </div>
+          </div>
+
+        <ion-item>
+          <ion-input name="fecha" formControlName="fecha" labelPlacement="floating" type="date" label="Fecha: "></ion-input>
+        </ion-item>
+        
+        <div id="alerta" *ngIf="updateForm.get('fecha')?.invalid && (updateForm.get('fecha')?.dirty || 
+                updateForm.get('fecha')?.touched)">
+          <div id="alerta" *ngIf="updateForm.get('fecha')?.hasError('required')">
+            *Debe ingresar una fecha para el evento
+          </div>
+        </div>
+      
+        <ion-item>
+          <ion-input name="lugar" formControlName="lugar" labelPlacement="floating" type="text" label="Lugar: " value="{{evento.lugar}}"></ion-input>
+        </ion-item>
+
+        <div id="alerta" *ngIf="updateForm.get('lugar')?.invalid && (updateForm.get('lugar')?.dirty || 
+                updateForm.get('lugar')?.touched)">
+          <div id="alerta" *ngIf="updateForm.get('lugar')?.hasError('required')">
+            *Debe ingresar un lugar para el evento
+          </div>
+        </div>
+
+        <ion-item>
+          <ion-input name="anfitrion" formControlName="anfitrion" labelPlacement="floating" type="text" label="Anfitrion: " value="{{evento.anfitrion}}"></ion-input>
+        </ion-item>
+
+        <div id="alerta" *ngIf="updateForm.get('anfitrion')?.invalid && (updateForm.get('anfitrion')?.dirty || 
+        updateForm.get('anfitrion')?.touched)">
+          <div id="alerta" *ngIf="updateForm.get('anfitrion')?.hasError('required')">
+            *Debe ingresar un anfitrion para el evento
+          </div>
+        </div>
+
+        <ion-item>
+          <ion-input name="cupos" formControlName="cupos" labelPlacement="floating" type="number" placeholder="Escriba cantidad de cupos disponibles" label="Cantidad de cupos disponiblles" value="{{evento.cupos}}"></ion-input>
+        </ion-item>
+
+        <div id="alerta" *ngIf="updateForm.get('cupos')?.invalid && (updateForm.get('cupos')?.dirty || 
+                      updateForm.get('cupos')?.touched)">
+            <div id="alerta" *ngIf="updateForm.get('cupos')?.hasError('required')">
+              *Debe ingresar un numero para los cupos del evento
+            </div>
+            <div id="alerta" *ngIf="updateForm.get('cupos')?.hasError('pattern')">
+              *Se ha ingresado un numero o caracter invalido
+            </div>
+        </div>
+
+        <ion-item>
+          <ion-label position="stacked">Cambiar portada</ion-label>
+          <input type="file" accept="image/jpeg,image/png,image/webp" (change)="seleccionarPortada($event)">
+        </ion-item>
+        <ion-button *ngIf="evento.portada" type="button" fill="clear" color="danger" (click)="quitarPortada()">
+          Quitar portada
+        </ion-button>
+        <ion-note *ngIf="procesandoImagen">Procesando imagen...</ion-note>
+
+        <ion-item lines="none">
+          <ion-textarea name="descripcion" formControlName="descripcion" [counter]="true" maxlength="250" label="Descripcion del evento: " labelPlacement="floating" rows="5" value="{{evento.descripcion}}"></ion-textarea>
+        </ion-item>
+
+        <div id="alerta" *ngIf="updateForm.get('descripcion')?.invalid && (updateForm.get('descripcion')?.dirty || 
+                      updateForm.get('descripcion')?.touched)">
+            <div id="alerta" *ngIf="updateForm.get('descripcion')?.hasError('required')">
+              *Debe ingresar una descripcion para el evento
+            </div>
+            <div id="alerta" *ngIf="updateForm.get('descripcion')?.hasError('minlength')">
+              *La descripcion del evento debe tener al menos 20 caracteres.
+            </div>
+        </div>
+
+      </ion-list>
+    </form>
+    </ion-card-content>
+    <ion-button [disabled]="!updateForm.valid" (click)="updatEvento()" class="pr pl pb" color="tertiary" expand="block" fill="solid" shape="round" size="default">
+      Editar
+    </ion-button>
+    <ion-button (click)="deleteEvent()" id="cancel-alert" class="pr pl pb" color="danger" expand="block" fill="solid" shape="round" size="default">
+      Cancelar evento
+    </ion-button>
+  </ion-card>
+
+
+</ion-content>

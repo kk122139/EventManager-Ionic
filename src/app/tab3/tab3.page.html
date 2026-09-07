@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button
+      defaultHref="tabs/tab2"
+      text=""
+      color="dark"
+      slot="start">
+    </ion-back-button>
+    <ion-title>Eventos creados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p class="pr pl">
+    Aquí podrás ver los eventos que has creado, validar asistencia de los asistentes y editar o cancelar un evento.
+  </p>
+
+  <ion-card *ngFor="let e of eventos" color="dark" class="pb">
+    <ion-card-header>
+      <img [src]="e.portada || 'assets/robots.jpg'" [alt]="'Portada de ' + e.nombre">
+      <ion-card-subtitle>{{e.id}}</ion-card-subtitle>
+      <ion-card-title>{{e.nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Anfitrión: {{e.anfitrion}}</p>
+      <p><b>Fecha del evento: {{e.fecha}}</b></p>
+      <p>Lugar: {{e.lugar}}</p>
+      <p>Descripción: {{e.descripcion}}</p>
+    </ion-card-content>
+    <ion-button expand="block" color="primary" (click)="scanearQR()" [disabled]="scanning">
+      {{ scanning ? 'Abriendo cámara…' : 'Validar asistencia' }}
+    </ion-button>
+    <ion-button (click)="listaAsistentes(e)" class="pr pl pb" color="success" expand="block" fill="solid" shape="round">
+      Lista de asistentes
+    </ion-button>
+    <ion-button color="secondary" (click)="comentarios(e)" class="pr pl pb" expand="block" fill="solid" shape="round">
+      Ver comentarios
+    </ion-button>
+    <ion-button (click)="editarEvento(e)" class="pr pl pb" color="tertiary" expand="block" fill="solid" shape="round">
+      Editar evento
+    </ion-button>
+  </ion-card>
+</ion-content>

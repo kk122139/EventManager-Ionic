@@ -1,0 +1,122 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button 
+    defaultHref="tabs/tab2"
+    text=""
+    color="dark"
+    slot="start">
+  </ion-back-button>
+    <ion-title>
+      Mi Perfil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="updateForm">
+       
+        <ion-item class="">
+          <img src="assets/avatar.avif" alt="" class="pt">
+        </ion-item>
+        <ion-list class="pb">
+          <ion-item>
+            <ion-input formControlName="username" nombre="username" labelPlacement="floating" type="text" label="Username" ></ion-input>
+          </ion-item>
+
+          <div id="alerta" *ngIf="updateForm.get('username')?.invalid && (updateForm.get('username')?.dirty || 
+                      updateForm.get('username')?.touched)">
+              <div id="alerta" *ngIf="updateForm.get('username')?.hasError('required')">
+                *Debe ingresar un nombre de usuario
+              </div>
+              <div id="alerta" *ngIf="updateForm.get('username')?.hasError('minlength')">
+                *El nombre de usuario debe tener al menos 6 caracteres
+              </div>
+          </div>
+
+          <ion-item>
+            <ion-input formControlName="rut" nombre="rut" labelPlacement="floating" type="number"  label="Rut" ></ion-input>
+          </ion-item>
+          
+          
+            <div id="alerta" *ngIf="updateForm.get('rut')?.invalid && (updateForm.get('rut')?.dirty || 
+                        updateForm.get('rut')?.touched)">
+                <div id="alerta" *ngIf="updateForm.get('rut')?.hasError('required')">
+                  *Ingrese los primeros 8 digitos de su rut
+                </div>
+                <div id="alerta" *ngIf="updateForm.get('rut')?.hasError('pattern')">
+                  *Rut invalido
+                </div>
+            </div>
+
+          <ion-item>
+            <ion-input formControlName="email" nombre="email" labelPlacement="floating" type="email"  label="Email" ></ion-input>
+          </ion-item>
+
+            <div id="alerta" *ngIf="updateForm.get('email')?.invalid && (updateForm.get('email')?.dirty || 
+                      updateForm.get('email')?.touched)">
+              <div id="alerta" *ngIf="updateForm.get('email')?.hasError('required')">
+                *Debe ingresar un email
+              </div>
+              <div id="alerta" *ngIf="updateForm.get('email')?.hasError('email')">
+                *Porfavor ingrese un correo valido
+              </div>
+           </div>
+
+          <ion-item>
+            <ion-input nombre="pnombre" formControlName="pnombre" labelPlacement="floating" type="text"  label="Nombre" ></ion-input>
+          </ion-item>
+          
+          <div id="alerta" *ngIf="updateForm.get('pnombre')?.invalid && (updateForm.get('pnombre')?.dirty || 
+                    updateForm.get('pnombre')?.touched)">
+            <div id="alerta" *ngIf="updateForm.get('pnombre')?.hasError('required')">
+              *Porfavor ingrese su nombre
+            </div>
+            <div id="alerta" *ngIf="updateForm.get('pnombre')?.hasError('pattern')">
+              *Usted ha ingresado un caracter invalido
+            </div>
+          </div>
+
+          <ion-item>
+            <ion-input formControlName="apellido" nombre="apellido" labelPlacement="floating" type="text"  label="Apellido" ></ion-input>
+          </ion-item>
+
+          <div id="alerta" *ngIf="updateForm.get('apellido')?.invalid && (updateForm.get('apellido')?.dirty || 
+                        updateForm.get('apellido')?.touched)">
+                <div id="alerta" *ngIf="updateForm.get('apellido')?.hasError('required')">
+                  *Porfavor ingrese su apellido
+                </div>
+                <div id="alerta" *ngIf="updateForm.get('apellido')?.hasError('pattern')">
+                  *Usted ha ingresado un caracter invalido
+                </div>
+            </div>
+
+          <ion-item>
+            <ion-input formControlName="carrera" nombre="carrera" labelPlacement="floating" type="text"  label="Carrera" ></ion-input>
+          </ion-item>
+
+          <div id="alerta" *ngIf="updateForm.get('carrera')?.invalid && (updateForm.get('carrera')?.dirty || 
+                        updateForm.get('carrera')?.touched)">
+                
+                <div id="alerta" *ngIf="updateForm.get('carrera')?.hasError('pattern')">
+                  *Usted ha ingresado un caracter invalido
+                </div>
+            </div>
+
+        </ion-list>
+      </form>
+    </ion-card-content>
+    <div class="pb">
+      <ion-button (click)="updatUsuario()"  expand="block" fill="solid" shape="round" color="tertiary">
+        Editar
+      </ion-button>
+      <ion-button (click)="cerrarSesion()" expand="block" fill="outline" shape="round" color="danger">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Cerrar sesión
+      </ion-button>
+    </div>
+  </ion-card>
+
+
+</ion-content>

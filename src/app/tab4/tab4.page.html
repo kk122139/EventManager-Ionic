@@ -1,0 +1,113 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button 
+    defaultHref="tabs/tab2"
+    text=""
+    color="dark"
+    slot="start">
+  </ion-back-button>
+    <ion-title>Creando un Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="newEventForm">
+
+        <ion-list >
+          <ion-item>
+          <ion-input name="nombre" formControlName="nombre" labelPlacement="floating" type="text" placeholder="Escriba nombre del evento" label="Nombre del Evento"></ion-input>
+        </ion-item>
+
+         <div id="alerta" *ngIf="newEventForm.get('nombre')?.invalid && (newEventForm.get('nombre')?.dirty || 
+                      newEventForm.get('nombre')?.touched)">
+              <div id="alerta" *ngIf="newEventForm.get('nombre')?.hasError('required')">
+                *Debe ingresar un nombre para el evento
+              </div>
+          </div>
+
+        <ion-item>
+          <ion-input formControlName="lugar" name="lugar" labelPlacement="floating" type="text" placeholder="Escriba lugar del evento" label="Lugar"></ion-input>
+        </ion-item>
+
+        <div id="alerta" *ngIf="newEventForm.get('lugar')?.invalid && (newEventForm.get('lugar')?.dirty || 
+                      newEventForm.get('lugar')?.touched)">
+              <div id="alerta" *ngIf="newEventForm.get('lugar')?.hasError('required')">
+                *Debe ingresar un lugar para el evento
+              </div>
+          </div>
+
+        <ion-item>
+          <ion-input formControlName="anfitrion" name="anfitrion" labelPlacement="floating" type="text" placeholder="Escriba Anfitrion del evento" label="Anfitrion del Evento" ></ion-input>
+        </ion-item>
+        
+        <div id="alerta" *ngIf="newEventForm.get('anfitrion')?.invalid && (newEventForm.get('anfitrion')?.dirty || 
+                      newEventForm.get('anfitrion')?.touched)">
+              <div id="alerta" *ngIf="newEventForm.get('anfitrion')?.hasError('required')">
+                *Debe ingresar un anfitrion para el evento
+              </div>
+          </div>
+
+        <ion-item>
+          <ion-input formControlName="cupos" name="cupos" labelPlacement="floating" type="number" placeholder="Escriba cantidad de cupos disponibles" label="Cantidad de cupos disponiblles"></ion-input>
+        </ion-item>
+
+        <div id="alerta" *ngIf="newEventForm.get('cupos')?.invalid && (newEventForm.get('cupos')?.dirty || 
+                      newEventForm.get('cupos')?.touched)">
+            <div id="alerta" *ngIf="newEventForm.get('cupos')?.hasError('required')">
+              *Debe ingresar un numero para los cupos del evento
+            </div>
+            <div id="alerta" *ngIf="newEventForm.get('cupos')?.hasError('pattern')">
+              *Se ha ingresado un numero o caracter invalido
+            </div>
+        </div>
+
+        <ion-item>
+          <ion-input formControlName="fecha" name="fecha"  type="date"  label="Fecha:"></ion-input>
+        </ion-item>
+
+        <div id="alerta" *ngIf="newEventForm.get('fecha')?.invalid && (newEventForm.get('fecha')?.dirty || 
+                newEventForm.get('fecha')?.touched)">
+          <div id="alerta" *ngIf="newEventForm.get('fecha')?.hasError('required')">
+            *Debe ingresar una fecha para el evento
+          </div>
+        </div>
+
+        <ion-item>
+          <ion-label position="stacked">Portada del evento</ion-label>
+          <input name="portada" type="file" accept="image/jpeg,image/png,image/webp" (change)="seleccionarPortada($event)">
+        </ion-item>
+
+        <div class="portada-preview" *ngIf="portadaBase64">
+          <img [src]="portadaBase64" alt="Vista previa de la portada del evento">
+          <ion-button type="button" size="small" fill="clear" color="danger" (click)="quitarPortada()">
+            Quitar imagen
+          </ion-button>
+        </div>
+        <ion-note *ngIf="procesandoImagen">Procesando imagen...</ion-note>
+
+        <ion-item lines="none">
+          <ion-textarea formControlName="descripcion" name="descripcion" [counter]="true" maxlength="250" label="Descripcion del evento" labelPlacement="floating" rows="5"></ion-textarea>
+        </ion-item>
+
+        <div id="alerta" *ngIf="newEventForm.get('descripcion')?.invalid && (newEventForm.get('descripcion')?.dirty || 
+                      newEventForm.get('descripcion')?.touched)">
+            <div id="alerta" *ngIf="newEventForm.get('descripcion')?.hasError('required')">
+              *Debe ingresar una descripcion para el evento
+            </div>
+            <div id="alerta" *ngIf="newEventForm.get('descripcion')?.hasError('minlength')">
+              *La descripcion del evento debe tener al menos 20 caracteres.
+            </div>
+        </div>
+
+      </ion-list>
+    </form>
+    </ion-card-content>
+    <div class="pb">
+      <ion-button [disabled]="!newEventForm.valid" (click)="crearEvento()" expand="block" fill="solid" shape="round" color="tertiary">
+        Crear Evento
+      </ion-button>
+    </div>
+  </ion-card>
+</ion-content>

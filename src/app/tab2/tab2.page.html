@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Proximos eventos
+    </ion-title>
+    <ion-buttons slot="end">
+      <!-- <ion-button (click)="mostrarMenu()">
+        <ion-icon slot="end" name="menu-outline" color="dark" size="large"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p class="pl pr">Desliza hacia la derecha para ver mas...</p>
+  
+  <!-- <ion-card color="dark" class="pb">
+    <ion-card-header>
+      <ion-card-subtitle>Fecha del evento:</ion-card-subtitle>
+      <ion-card-title>Superluna Evento Hablemos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img src="assets/evento1.jpg" alt="">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A voluptatum illo atque iure dolorum labore sed error nulla ratione, velit, eveniet ullam asperiores voluptate et soluta minima modi, ut temporibus?</p>
+    </ion-card-content>
+    <ion-button class="pb pr pl" color="tertiary" expand="block" fill="solid" shape="round" size="default">
+      Mas informacion
+    </ion-button>
+  </ion-card>
+  <ion-card color="dark" class="pb">
+    <ion-card-header>
+      <ion-card-subtitle>Fecha del evento:</ion-card-subtitle>
+      <ion-card-title>Pelea de Robots</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="e.portada || 'assets/robots.jpg'" [alt]="'Portada de ' + e.nombre">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A voluptatum illo atque iure dolorum labore sed error nulla ratione, velit, eveniet ullam asperiores voluptate et soluta minima modi, ut temporibus?</p>
+    </ion-card-content>
+    <ion-button class="pb pr pl" color="tertiary" expand="block" fill="solid" shape="round" size="default">
+      Mas informacion
+    </ion-button>
+  </ion-card> -->
+    
+  <ion-card *ngFor="let e of eventos" color="dark" class="pb"> 
+    <ion-card-header>
+      <img [src]="e.portada || 'assets/robots.jpg'" [alt]="'Portada de ' + e.nombre">
+      <ion-card-subtitle>{{e.id}} </ion-card-subtitle>
+      <ion-card-title>{{e.nombre}} </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><b>Fecha del evento: {{e.fecha}}</b></p>
+      <p>Lugar: {{e.lugar}}</p>
+      <p>Descripcion: {{e.descripcion}}</p>
+      <p>Anfitrion: {{e.anfitrion}}</p>
+      
+    </ion-card-content>
+    <ion-button class="pb pr pl" color="tertiary" expand="block" fill="solid" shape="round" size="default">
+      Mas informacion
+    </ion-button>
+  </ion-card>
+
+</ion-content>
